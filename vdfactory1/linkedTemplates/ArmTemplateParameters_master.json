@@ -1,0 +1,33 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "vdfactory1"
+		},
+		"vDataLakeStorage1_accountKey": {
+			"value": ""
+		},
+		"vdb1LS_connectionString": {
+			"value": ""
+		},
+		"AzureBlobStorageLS1_properties_typeProperties_connectionString_secretName": {
+			"value": "vstorage1"
+		},
+		"AzureKeyVaultLS1_properties_typeProperties_baseUrl": {
+			"value": "https://vkeyvault1.vault.azure.net/"
+		},
+		"upsert_linked_s1_properties_typeProperties_connectionString_secretName": {
+			"value": "vdb2"
+		},
+		"vDataLakeStorage1_properties_typeProperties_url": {
+			"value": "https://vdatalake1.dfs.core.windows.net/"
+		},
+		"containerUri": {
+			"value": ""
+		},
+		"containerSasToken": {
+			"value": ""
+		}
+	}
+}
