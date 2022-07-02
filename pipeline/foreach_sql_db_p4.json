@@ -1,0 +1,112 @@
+{
+	"name": "foreach_sql_db_p4",
+	"properties": {
+		"description": "Different files from different input folders to sql db. Using shcema name and table name as parameters. The tables had to be created in the schema first.",
+		"activities": [
+			{
+				"name": "ForEach_sql_4",
+				"type": "ForEach",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@variables('metadata_sql')",
+						"type": "Expression"
+					},
+					"isSequential": false,
+					"batchCount": 5,
+					"activities": [
+						{
+							"name": "Copy data4",
+							"type": "Copy",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "7.00:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"source": {
+									"type": "DelimitedTextSource",
+									"storeSettings": {
+										"type": "AzureBlobFSReadSettings",
+										"recursive": true,
+										"enablePartitionDiscovery": false
+									},
+									"formatSettings": {
+										"type": "DelimitedTextReadSettings"
+									}
+								},
+								"sink": {
+									"type": "AzureSqlSink",
+									"writeBehavior": "insert",
+									"sqlWriterUseTableLock": false
+								},
+								"enableStaging": false,
+								"translator": {
+									"type": "TabularTranslator",
+									"typeConversion": true,
+									"typeConversionSettings": {
+										"allowDataTruncation": true,
+										"treatBooleanAsNumber": false
+									}
+								}
+							},
+							"inputs": [
+								{
+									"referenceName": "dls1",
+									"type": "DatasetReference",
+									"parameters": {
+										"sourcefile": {
+											"value": "@item().Inputfile",
+											"type": "Expression"
+										},
+										"input_folder": {
+											"value": "@item().infoldername",
+											"type": "Expression"
+										}
+									}
+								}
+							],
+							"outputs": [
+								{
+									"referenceName": "for_each_DB_dataset1",
+									"type": "DatasetReference",
+									"parameters": {
+										"table_name": {
+											"value": "@item().Outtable",
+											"type": "Expression"
+										},
+										"schema_name": {
+											"value": "@item().Schema",
+											"type": "Expression"
+										}
+									}
+								}
+							]
+						}
+					]
+				}
+			}
+		],
+		"variables": {
+			"metadata_sql": {
+				"type": "Array",
+				"defaultValue": [
+					{
+						"Inputfile": "Department.csv",
+						"infoldername": "subfolder1/subfolder2",
+						"Outtable": "Departmentout",
+						"Schema": "SalesLT"
+					}
+				]
+			}
+		},
+		"annotations": [],
+		"lastPublishTime": "2022-06-17T12:37:17Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

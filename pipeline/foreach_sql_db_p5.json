@@ -1,0 +1,115 @@
+{
+	"name": "foreach_sql_db_p5",
+	"properties": {
+		"description": "Load one table into db using upsert.",
+		"activities": [
+			{
+				"name": "ForEach_sql_5",
+				"description": "Two files in different folders. Writing to two tables one exist one does not exist.",
+				"type": "ForEach",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@variables('metadata_sql2')",
+						"type": "Expression"
+					},
+					"isSequential": false,
+					"batchCount": 5,
+					"activities": [
+						{
+							"name": "Copy data5",
+							"type": "Copy",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "7.00:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"source": {
+									"type": "DelimitedTextSource",
+									"storeSettings": {
+										"type": "AzureBlobFSReadSettings",
+										"recursive": true,
+										"enablePartitionDiscovery": false
+									},
+									"formatSettings": {
+										"type": "DelimitedTextReadSettings"
+									}
+								},
+								"sink": {
+									"type": "AzureSqlSink",
+									"preCopyScript": "truncate table SalesLT.Departmentout;",
+									"writeBehavior": "insert",
+									"sqlWriterUseTableLock": false,
+									"disableMetricsCollection": false
+								},
+								"enableStaging": false,
+								"translator": {
+									"type": "TabularTranslator",
+									"typeConversion": true,
+									"typeConversionSettings": {
+										"allowDataTruncation": true,
+										"treatBooleanAsNumber": false
+									}
+								}
+							},
+							"inputs": [
+								{
+									"referenceName": "dls1",
+									"type": "DatasetReference",
+									"parameters": {
+										"sourcefile": {
+											"value": "@item().Inputfile",
+											"type": "Expression"
+										},
+										"input_folder": {
+											"value": "@item().infoldername",
+											"type": "Expression"
+										}
+									}
+								}
+							],
+							"outputs": [
+								{
+									"referenceName": "for_each_DB_dataset1",
+									"type": "DatasetReference",
+									"parameters": {
+										"table_name": {
+											"value": "@item().Outtable",
+											"type": "Expression"
+										},
+										"schema_name": {
+											"value": "@item().Schema",
+											"type": "Expression"
+										}
+									}
+								}
+							]
+						}
+					]
+				}
+			}
+		],
+		"variables": {
+			"metadata_sql2": {
+				"type": "Array",
+				"defaultValue": [
+					{
+						"Inputfile": "Department.csv",
+						"infoldername": "subfolder1/subfolder2",
+						"Outtable": "Departmentout",
+						"Schema": "SalesLT"
+					}
+				]
+			}
+		},
+		"annotations": [],
+		"lastPublishTime": "2022-06-17T12:37:17Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

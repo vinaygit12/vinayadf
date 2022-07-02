@@ -1,0 +1,17 @@
+{
+	"name": "sqltbl_lookup1",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "vdb1LS",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "SalesLT",
+			"table": "metadata4"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

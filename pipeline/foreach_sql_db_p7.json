@@ -1,0 +1,162 @@
+{
+	"name": "foreach_sql_db_p7",
+	"properties": {
+		"description": "Load two tables from different folders into db using upsert. HAS ERRORS.",
+		"activities": [
+			{
+				"name": "ForEach_sql_7",
+				"description": "Two files in different folders. Writing to two tables one exist one does not exist. ",
+				"type": "ForEach",
+				"dependsOn": [
+					{
+						"activity": "Lookup_7",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@variables('metadata_sql4')",
+						"type": "Expression"
+					},
+					"isSequential": false,
+					"batchCount": 5,
+					"activities": [
+						{
+							"name": "Copy data7",
+							"type": "Copy",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "7.00:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"source": {
+									"type": "DelimitedTextSource",
+									"storeSettings": {
+										"type": "AzureBlobFSReadSettings",
+										"recursive": true,
+										"enablePartitionDiscovery": false
+									},
+									"formatSettings": {
+										"type": "DelimitedTextReadSettings"
+									}
+								},
+								"sink": {
+									"type": "AzureSqlSink",
+									"writeBehavior": "upsert",
+									"upsertSettings": {
+										"useTempDB": true,
+										"keys": {
+											"value": "@array(activity('Lookup_7').output.value[0].keyid)",
+											"type": "Expression"
+										}
+									},
+									"sqlWriterUseTableLock": false,
+									"disableMetricsCollection": false
+								},
+								"enableStaging": false,
+								"translator": {
+									"type": "TabularTranslator",
+									"typeConversion": true,
+									"typeConversionSettings": {
+										"allowDataTruncation": true,
+										"treatBooleanAsNumber": false
+									}
+								}
+							},
+							"inputs": [
+								{
+									"referenceName": "dls1",
+									"type": "DatasetReference",
+									"parameters": {
+										"sourcefile": {
+											"value": "@item().Inputfile",
+											"type": "Expression"
+										},
+										"input_folder": {
+											"value": "@item().infoldername",
+											"type": "Expression"
+										}
+									}
+								}
+							],
+							"outputs": [
+								{
+									"referenceName": "upsert_sink1",
+									"type": "DatasetReference",
+									"parameters": {
+										"schema_name": {
+											"value": "@item().Schema",
+											"type": "Expression"
+										},
+										"table_name": {
+											"value": "@item().Outtable",
+											"type": "Expression"
+										}
+									}
+								}
+							]
+						}
+					]
+				}
+			},
+			{
+				"name": "Lookup_7",
+				"type": "Lookup",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "AzureSqlSource",
+						"sqlReaderQuery": "select keyid from SalesLT.metadata4;",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"dataset": {
+						"referenceName": "lkds1",
+						"type": "DatasetReference"
+					},
+					"firstRowOnly": false
+				}
+			}
+		],
+		"variables": {
+			"metadata_sql4": {
+				"type": "Array",
+				"defaultValue": [
+					{
+						"Inputfile": "Department.csv",
+						"infoldername": "subfolder1/subfolder2",
+						"Schema": "SalesLT",
+						"Outtable": "Departmentout",
+						"keycol": "Department_id"
+					},
+					{
+						"Inputfile": "upsert_data.csv",
+						"infoldername": "subfolder1",
+						"Schema": "SalesLT",
+						"Outtable": "upsertout",
+						"keycol": "Employee_id"
+					}
+				]
+			}
+		},
+		"annotations": [],
+		"lastPublishTime": "2022-06-19T14:27:26Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

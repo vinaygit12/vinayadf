@@ -1,0 +1,27 @@
+{
+	"name": "metadata_table1",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "vdb1LS",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "id",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "foldername",
+				"type": "varchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "SalesLT",
+			"table": "metadata"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

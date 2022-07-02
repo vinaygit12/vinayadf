@@ -1,0 +1,136 @@
+{
+	"name": "foreach_p3",
+	"properties": {
+		"description": "Different files from different input folders to different targets",
+		"activities": [
+			{
+				"name": "ForEach3",
+				"type": "ForEach",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@variables('metadata3')",
+						"type": "Expression"
+					},
+					"isSequential": false,
+					"batchCount": 5,
+					"activities": [
+						{
+							"name": "Copy data3",
+							"type": "Copy",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "7.00:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"source": {
+									"type": "DelimitedTextSource",
+									"storeSettings": {
+										"type": "AzureBlobFSReadSettings",
+										"recursive": true,
+										"enablePartitionDiscovery": false
+									},
+									"formatSettings": {
+										"type": "DelimitedTextReadSettings"
+									}
+								},
+								"sink": {
+									"type": "DelimitedTextSink",
+									"storeSettings": {
+										"type": "AzureBlobFSWriteSettings"
+									},
+									"formatSettings": {
+										"type": "DelimitedTextWriteSettings",
+										"quoteAllText": true,
+										"fileExtension": ".txt"
+									}
+								},
+								"enableStaging": false,
+								"translator": {
+									"type": "TabularTranslator",
+									"typeConversion": true,
+									"typeConversionSettings": {
+										"allowDataTruncation": true,
+										"treatBooleanAsNumber": false
+									}
+								}
+							},
+							"inputs": [
+								{
+									"referenceName": "dls1",
+									"type": "DatasetReference",
+									"parameters": {
+										"sourcefile": {
+											"value": "@item().Inputfile",
+											"type": "Expression"
+										},
+										"input_folder": {
+											"value": "@item().infoldername",
+											"type": "Expression"
+										}
+									}
+								}
+							],
+							"outputs": [
+								{
+									"referenceName": "dlsink2",
+									"type": "DatasetReference",
+									"parameters": {
+										"out_folder": {
+											"value": "@item().ofoldername",
+											"type": "Expression"
+										},
+										"targetfile": {
+											"value": "@item().Outputfile",
+											"type": "Expression"
+										}
+									}
+								}
+							]
+						}
+					]
+				}
+			}
+		],
+		"variables": {
+			"metadata3": {
+				"type": "Array",
+				"defaultValue": [
+					{
+						"Inputfile": "Department.csv",
+						"infoldername": "subfolder1/subfolder2",
+						"Outputfile": "Departmentout.csv",
+						"ofoldername": "outsub1/outsub2"
+					},
+					{
+						"Inputfile": "Employee.csv",
+						"infoldername": "subfolder1/subfolder2",
+						"Outputfile": "Employeeout.csv",
+						"ofoldername": "outsub1/outsub2"
+					},
+					{
+						"Inputfile": "Sample_data.csv",
+						"infoldername": "subfolder1/subfolder2",
+						"Outputfile": "Sample_dataout.csv",
+						"ofoldername": "outsub1/outsub2"
+					},
+					{
+						"Inputfile": "upsert_data.csv",
+						"infoldername": "subfolder1",
+						"Outputfile": "upsert_dataout.csv",
+						"ofoldername": "outsub1"
+					}
+				]
+			}
+		},
+		"annotations": [],
+		"lastPublishTime": "2022-06-16T20:22:30Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

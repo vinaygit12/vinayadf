@@ -1,0 +1,24 @@
+{
+	"name": "lookup_source1",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "vDataLakeStorage1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "Department1.csv",
+				"folderPath": "subfolder1/subfolder2",
+				"fileSystem": "input"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"quoteChar": "\""
+		},
+		"schema": []
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

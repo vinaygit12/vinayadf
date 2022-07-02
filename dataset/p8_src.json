@@ -1,0 +1,37 @@
+{
+	"name": "p8_src",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "vDataLakeStorage1",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"infolder": {
+				"type": "string"
+			},
+			"infile": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": {
+					"value": "@dataset().infile",
+					"type": "Expression"
+				},
+				"fileSystem": {
+					"value": "@dataset().infolder",
+					"type": "Expression"
+				}
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"quoteChar": "\""
+		},
+		"schema": []
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

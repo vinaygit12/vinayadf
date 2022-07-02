@@ -1,0 +1,9 @@
+{
+	"name": "vdfactory1",
+	"location": "eastus",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "c3895d79-2e33-4573-b8bd-f931a15b0124",
+		"tenantId": "8da6c215-b6b0-43fe-91ad-f4a4392f8112"
+	}
+}

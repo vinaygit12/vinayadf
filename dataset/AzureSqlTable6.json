@@ -1,0 +1,22 @@
+{
+	"name": "AzureSqlTable6",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "vdb1LS",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"sorce_folder2": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "SalesLT",
+			"table": "metadata3"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

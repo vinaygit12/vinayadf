@@ -1,0 +1,24 @@
+{
+	"name": "sch_based_trg1",
+	"properties": {
+		"annotations": [],
+		"runtimeState": "Stopped",
+		"pipelines": [
+			{
+				"pipelineReference": {
+					"referenceName": "pipeline10",
+					"type": "PipelineReference"
+				}
+			}
+		],
+		"type": "ScheduleTrigger",
+		"typeProperties": {
+			"recurrence": {
+				"frequency": "Minute",
+				"interval": 2,
+				"startTime": "2022-07-02T17:59:00",
+				"timeZone": "Eastern Standard Time"
+			}
+		}
+	}
+}

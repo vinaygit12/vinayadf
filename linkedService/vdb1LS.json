@@ -1,0 +1,19 @@
+{
+	"name": "vdb1LS",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "AzureSqlDatabase",
+		"typeProperties": {
+			"connectionString": "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=vinaysqlserver1.database.windows.net;Initial Catalog=vdb1;User ID=vgadmin",
+			"password": {
+				"type": "AzureKeyVaultSecret",
+				"store": {
+					"referenceName": "AzureKeyVaultLS1",
+					"type": "LinkedServiceReference"
+				},
+				"secretName": "Vdb1access"
+			}
+		}
+	}
+}

@@ -1,0 +1,17 @@
+{
+	"name": "source_files1",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "vdb1LS",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "SalesLT",
+			"table": "metadata2"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

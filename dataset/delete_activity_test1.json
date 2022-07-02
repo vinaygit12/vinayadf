@@ -1,0 +1,19 @@
+{
+	"name": "delete_activity_test1",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "vDataLakeStorage1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Binary",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"folderPath": "outsub1",
+				"fileSystem": "output"
+			}
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}
