@@ -142,7 +142,7 @@
 					"storedProcedureParameters": {
 						"newwatermark": {
 							"value": {
-								"value": "@activity('Lookup2_pipe11').output.value",
+								"value": "@activity('Lookup2_pipe11').output.firstrow.order_date",
 								"type": "Expression"
 							},
 							"type": "DateTime"
