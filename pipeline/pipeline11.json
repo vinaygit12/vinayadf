@@ -42,7 +42,7 @@
 				"typeProperties": {
 					"source": {
 						"type": "AzureSqlSource",
-						"sqlReaderQuery": "select max(order_date) from saleslt.sales;",
+						"sqlReaderQuery": "select max(order_date) as order_date from saleslt.sales;",
 						"queryTimeout": "02:00:00",
 						"partitionOption": "None"
 					},
@@ -80,7 +80,7 @@
 				"typeProperties": {
 					"source": {
 						"type": "AzureSqlSource",
-						"sqlReaderQuery": "select * from saleslt.sales where order_date > '@{activity('Lookup1_pipe11').output.firstRow.OLDWATERMARK}' and order_date <= '@{activity('Lookup2_pipe11').output.firstRow.order_date}'",
+						"sqlReaderQuery": "select * from saleslt.sales where order_date > '@{activity('Lookup1_pipe11').output.firstRow.old_watermark}' and order_date <= '@{activity('Lookup2_pipe11').output.firstRow.order_date}'",
 						"queryTimeout": "02:00:00",
 						"partitionOption": "None"
 					},
@@ -138,7 +138,11 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"storedProcedureName": "[SalesLT].[updatewatermark]"
+					"storedProcedureName": "[SalesLT].[updatewatermark]",
+					"storedProcedureParameters": {
+						"value": "@activity('Lookup2_pipe11').output.firstRow.order_date",
+						"type": "Expression"
+					}
 				},
 				"linkedServiceName": {
 					"referenceName": "vdb1LS",

@@ -12,7 +12,7 @@
 				"type": "AzureBlobFSLocation",
 				"fileName": "sales_dela.csv",
 				"folderPath": {
-					"value": "@formatDateTime(utcnow(),'mm/dd/yyyy/')",
+					"value": "@formatDateTime(utcnow(),'yyyymmdd')",
 					"type": "Expression"
 				},
 				"fileSystem": "output"
