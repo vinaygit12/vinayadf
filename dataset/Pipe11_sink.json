@@ -12,13 +12,14 @@
 				"type": "AzureBlobFSLocation",
 				"fileName": "sales_dela.csv",
 				"folderPath": {
-					"value": "@formatDateTime(utcnow(),'yyyymmdd')",
+					"value": "@formatDateTime(utcnow(),'MM_dd_yyyy')",
 					"type": "Expression"
 				},
 				"fileSystem": "output"
 			},
 			"columnDelimiter": ",",
 			"escapeChar": "\\",
+			"firstRowAsHeader": true,
 			"quoteChar": "\""
 		},
 		"schema": []

@@ -138,10 +138,15 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"storedProcedureName": "[SalesLT].[updatewatermark2]",
+					"storedProcedureName": "[SalesLT].[updatewatermark]",
 					"storedProcedureParameters": {
-						"value": "@activity('Lookup2_pipe11').output.firstRow.order_date",
-						"type": "Expression"
+						"newwatermark": {
+							"value": {
+								"value": "@activity('Lookup2_pipe11').output.value",
+								"type": "Expression"
+							},
+							"type": "DateTime"
+						}
 					}
 				},
 				"linkedServiceName": {
