@@ -1,0 +1,26 @@
+{
+	"name": "Pipe11_sink",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "vDataLakeStorage1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "sales_dela.csv",
+				"folderPath": {
+					"value": "@formatDateTime(utcnow(),'mm/dd/yyyy/')",
+					"type": "Expression"
+				},
+				"fileSystem": "output"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"quoteChar": "\""
+		},
+		"schema": []
+	}
+}
