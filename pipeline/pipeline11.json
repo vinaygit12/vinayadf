@@ -138,7 +138,7 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"storedProcedureName": "[SalesLT].[updatewatermark]",
+					"storedProcedureName": "[SalesLT].[updatewatermark2]",
 					"storedProcedureParameters": {
 						"value": "@activity('Lookup2_pipe11').output.firstRow.order_date",
 						"type": "Expression"
