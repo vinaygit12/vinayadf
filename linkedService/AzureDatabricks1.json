@@ -7,7 +7,7 @@
 			"domain": "https://adb-5605370437286796.16.azuredatabricks.net",
 			"authentication": "MSI",
 			"workspaceResourceId": "/subscriptions/212a3f3d-1f4a-4bd1-b6c3-f2bb0dab92e1/resourceGroups/Vinay_resource1/providers/Microsoft.Databricks/workspaces/myws1",
-			"existingClusterId": "https://adb-5605370437286796.16.azuredatabricks.net/?o=5605370437286796#setting/clusters/0704-153622-xsj8bqpn"
+			"existingClusterId": "https://adb-5605370437286796.16.azuredatabricks.net/?o=5605370437286796#setting/clusters/0704-153622-xsj8bqpn/configuration"
 		}
 	}
 }
