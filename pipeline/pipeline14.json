@@ -15,10 +15,16 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"notebookPath": "/vinay1/vinay_decl_params"
+					"notebookPath": "/vinay1/vinay_decl_params",
+					"baseParameters": {
+						"RunDate": {
+							"value": "@formatDateTime(utcNow(),'ddMMyyyy')",
+							"type": "Expression"
+						}
+					}
 				},
 				"linkedServiceName": {
-					"referenceName": "AzureDatabricks1",
+					"referenceName": "AzureDatabricks2",
 					"type": "LinkedServiceReference"
 				}
 			}
